@@ -1,0 +1,190 @@
+/*Yes, this CSS was done by hand cause i hate myself*/
+
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+:root {
+	--white: #f0f0f0;
+	--complete-white: #ffffff;
+	--darker-white: #f3f3f3;
+	--green: #2eaf7d;
+	--darker-green: #02353c;
+	--shadow-green: #02353c35;
+	--red: #ed2939;
+	--yellow: #efa537;
+}
+
+* {
+	display: flex;
+	margin: 0;
+	padding: 0;
+
+	font-size: 18px;
+	font-family: 'Noto Sans', sans-serif;
+	flex-direction: column;
+
+	transition: all 0.3s ease 0s;
+}
+
+head {
+	display: none;
+}
+
+body{
+	justify-items: center;
+}
+
+header {
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	margin: 1rem;
+
+	font-size: 42px;
+	font-weight: 300;
+	color: var(--darker-green);
+}
+
+header > ion-icon {
+	padding: 10px;
+	font-size: 2rem;
+	--ionicon-stroke-width: 30px;
+16}
+
+#main-div {
+	padding: 2rem;
+	margin: 0 4rem 6rem 4rem;
+	background-color: var(--darker-white);
+	box-shadow: 0 0 15px 0 var(--shadow-green);
+}
+
+#class-name {
+	gap: 1rem;
+	flex-direction: row;
+	align-items: center;
+}
+
+#class-name:not(button) {
+	font-size: 32px;
+	font-weight: 300;
+}
+
+#class-field {
+	gap: 1rem;
+	flex-direction: row;
+	align-items: center;
+
+	font-size: 20px;
+	font-weight: 400;
+}
+
+#button-add-class {
+	margin: 0 0 1rem 0;
+}
+
+#button-add-field {
+	font-size: 16px;
+	background-color: var(--yellow);
+}
+
+#button-delete-class, #button-delete-field {
+	padding: 0;
+	flex-direction: row;
+	align-items: center;
+
+	color: var(--red);
+	background-color: #ffffff00;
+}
+
+#delete-class-icon {
+	padding: 0;
+	font-size: 2rem;
+}
+
+#delete-class-icon:hover {
+	scale: 90%;
+}
+
+#delete-field-icon {
+	padding: 0;
+	font-size: 1,4rem;
+}
+
+#delete-field-icon:hover {
+	scale: 90%;
+}
+
+#button-generate-code {
+	color: var(--white);
+	font-weight: 700;
+	background-color: var(--darker-green);
+	padding: 0.6rem 1.3rem;
+	align-self: end;
+}
+
+#button-generate-code:hover {
+	opacity: 85%;
+	padding: 0.6rem 1.5rem;
+}
+
+#code-section {
+	padding: 2rem;
+
+	border: 2px solid;
+	border-radius: 10px;
+	background-color: var(--complete-white);
+}
+
+#class, #class-name, #class-field, #button-generate-code {
+	margin: 0 0 1rem 0;
+}
+
+footer, footer > span {
+	color: var(--white);
+	background-color: var(--darker-green);
+	flex-direction: column;
+	gap: 10px;
+
+	font-size: 14px;
+	font-weight: 300;
+
+	padding: 0.6rem;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+button {
+	width: fit-content;
+	padding: 0.5rem 0.8rem;
+	cursor: pointer;
+
+	border: none;
+	border-radius: 10px;
+	text-decoration: none;
+
+	color: var(--white);
+	background-color: var(--green);
+}
+
+button:hover {
+	padding: 0.5rem 1rem;
+	opacity: 85%;
+}
+
+input, select {
+	padding: 4px;
+
+	border: none;
+	border-bottom: 2px solid var(--green);
+	background-color: var(--complete-white);
+}
+
+[draggable="true"] {
+  cursor: grab;
+}
+
+[draggable="true"]:active {
+  cursor: grabbing;
+  opacity: 0.5;
+}
