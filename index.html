@@ -4,80 +4,28 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<meta http-equiv="X-UA-Compatible" content="ie=edge">
-		<title>Django Model Forge</title>
+		<title>Modelify</title>
 		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
-		<section id="classes">
-			<!-- TODO: Import this template code to JS as inputTypeField options
-			<section id="class" hidden>
-				<h3 id="class-name">Class Name <button type="button" onClick="destroyClass()" id="button">Delete Class</button></h3>
-				<div id="class-field">
-					<input type="text" id="class-name" placeholder="Name">
-					<select for="types" id="class-type">
-						<option value ="auto-field">AutoField</option>
-						<option value ="big-auto-field">BigAutoField</option>
-						<option value ="big-integer-field">BigIntegerField</option>
-						<option value ="binary-field">BinaryField</option>
-						<option value ="boolean-field">BooleanField</option>
-						<option value ="char-field">CharField</option>
-						<option value ="date-field">DateField</option>
-						<option value ="date-time-field">DateTimeField</option>
-						<option value ="decimal-field">DecimalField</option>
-						<option value ="duration-field">DurationField</option>
-						<option value ="email-field">EmailField</option>
-						<option value ="file-field">FileField</option>
-						<option value="file-path-field">FilePathField</option>
-						<option value="float-field">FloatField</option>
-						<option value="generic-ip-address-field">GenericIPAddressField</option>
-						<option value="image-field">ImageField</option>
-						<option value="integer-field">IntegerField</option>
-						<option value="json-field">JSONField</option>
-						<option value="positive-big-integer-field">PositiveBigIntegerField</option>
-						<option value="positive-integer-field">PositiveIntegerField</option>
-						<option value="positive-small-integer-field">PositiveSmallIntegerField</option>
-						<option value="slug-field">SlugField</option>
-						<option value="small-auto-field">SmallAutoField</option>
-						<option value="small-integer-field">SmallIntegerField</option>
-						<option value="text-field">TextField</option>
-						<option value="time-field">TimeField</option>
-						<option value="url-field">URLField</option>
-						<option value="uuid-field">UUIDField</option>
-						<option value="foreign-key">ForeignKey</option>
-						<option value="many-to-many-field">ManyToManyField</option>
-						<option value="one-to-one-field">OneToOneField</option>
-					</select>
-					<select for="types" id="class-att-relationship">
-						<option value="class1">Class 1</option>
-					</select>
-					<input type="number" id="class-att-size" placeholder="Size">
-					<input type="text" id="class-att-default" placeholder="Default value">
-					<label id="class-att-label-pk" for="class-att-pk">Primary Key</label>
-					<input type="checkbox" id="class-att-pk">
-					<label id="class-att-label-null" for="class-att-null">Null</label>
-					<input type="checkbox" id="class-att-null">
-					<label id="class-att-label-blank" for="class-att-blank">Blank</label>
-					<input type="checkbox" id="class-att-blank">
-					<label id="class-att-label-unique" for="class-att-unique">Unique</label>
-					<input type="checkbox" id="class-att-unique">
-				</div>
+		<header><ion-icon name="build-outline"></ion-icon>Modelify</header>
+		<div id="main-div">
+			<!-- All the content inside 'classes' is JS generated -->
+			<section id="classes">
 			</section>
-			-->
-		</section>
-		<br>
-		<button type="button" onClick="createClass()" id="button">New Class</button>
-		<button type="button" onClick="generateModels()" id="button">Generate code</button>
-		<hr>
-		<section id="code-section" hidden>
-			<h3>Generated Code!</h3>
-			<p id="code-block"></p>
-		</section>
-		<hr>
-		<footer>
-			<span id="footer-text">Made by Anthony Silva.</span>
-		</footer>
-
+			<button type="button" onClick="createClass()" id="button-add-class">New Class</button>
+			<button type="button" onClick="generateModels()" id="button-generate-code">Generate code</button>
+			<section id="code-section" hidden>
+				<p id="code-block">...</p>
+			</section>
+		</div>
+			<footer>
+				<span id="footer-text">Made by Anthony Silva.</span>
+			</footer>
 		<!-- Page script -->
 		<script src="script.js"></script>
+		<!-- Ion Icons Lib-->
+		<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+		<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 	</body>
 </html>
