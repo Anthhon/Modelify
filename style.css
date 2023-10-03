@@ -106,7 +106,7 @@ header > ion-icon {
 
 #delete-field-icon {
 	padding: 0;
-	font-size: 1,4rem;
+	font-size: 1.5rem;
 }
 
 #delete-field-icon:hover {
@@ -132,6 +132,7 @@ header > ion-icon {
 	border: 2px solid;
 	border-radius: 10px;
 	background-color: var(--complete-white);
+	white-space: pre-wrap;
 }
 
 #class, #class-name, #class-field, #button-generate-code {

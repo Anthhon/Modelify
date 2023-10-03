@@ -97,6 +97,7 @@ function updateAttRelationshipSelect() {
     let attRelationshipSelects = document.querySelectorAll("select[id='att-relationship']");
 
     // Iterate through each attRelationshipSelect element
+
     attRelationshipSelects.forEach(attRelationshipSelect => {
         // Get the selected value before updating
         let selectedValue = attRelationshipSelect.value;
@@ -132,6 +133,7 @@ function addField(event) {
 	// Create select element for class type
 	var classTypeSelect = document.createElement("select");
 	classTypeSelect.id = "att-type";
+	classTypeSelect.addEventListener("change", fieldTypeModified);
 	newField.appendChild(classTypeSelect);
 
 	// Define the option values and text
@@ -182,14 +184,22 @@ function addField(event) {
 
 	newField.appendChild(attSize);
 
+	var attDefault = document.createElement("input");
+	attDefault.id = "att-default";
+	attDefault.placeholder = "Default Value";
+
+	newField.appendChild(attDefault);
+
 	// Create select element for class attribute relationship
 	var labelClassAttRelationship = document.createElement("label");
 	labelClassAttRelationship.id = "att-label-relationship";
 	labelClassAttRelationship.textContent = "ForeignKey to:";
+	labelClassAttRelationship.style.display= "none";
 
 	var attRelationshipSelect = document.createElement("select");
 	attRelationshipSelect.setAttribute("for", "types");
 	attRelationshipSelect.id = "att-relationship";
+	attRelationshipSelect.style.display= "none";
 
 	// Add class names from the classNames array
 	classNames.forEach(className => {
@@ -247,7 +257,7 @@ function addField(event) {
 	classSection.insertBefore(newField, newFieldButtonPosition);
 }
 
-function deleteField() {
+function deleteField(event) {
 	// Get button clicked and parent class
 	let deleteFieldButton = event.target;
 	var fieldSection = deleteFieldButton.parentNode.parentNode;
@@ -257,14 +267,93 @@ function deleteField() {
 	}
 }
 
-function generateModels() {
-	const codeBlock = document.getElementById("code-block");
-	const codeSection = document.getElementById("code-section");
-	let code = "Gotcha!";
+function fieldTypeModified(event) {
+	var attType = event.target.value;
+	var currentField = event.target.closest("#class-field");
+	var attLabelRelationship = currentField.querySelector("#att-label-relationship");
+	var attRelationshipSelect = currentField.querySelector("#att-relationship");
+	var attSizeInput = currentField.querySelector("#att-size");
 
-	// TODO: Generate models code
-	codeSection.hidden = false;
-	codeBlock.textContent = code;
+	if (attType === "foreign-key") {
+		// If att-type is 'foreign-key', show relationship elements and hide size element
+		attLabelRelationship.style.display = "block";
+		attRelationshipSelect.style.display = "block";
+		attSizeInput.style.display = "none";
+	} else {
+		// If att-type is not 'foreign-key', hide relationship elements and show size element
+		attLabelRelationship.style.display = "none";
+		attRelationshipSelect.style.display = "none";
+		attSizeInput.style.display = "block";
+	}
+}
+
+function generateModels() {
+	// Get all class sections
+	const classSections = document.querySelectorAll("#class");
+
+	// Start the code with imports and any initial setup
+	let generatedCode = ``;
+
+	// Iterate through each class section and generate code
+	classSections.forEach(classSection => {
+		// Get class name
+		const className = classSection.querySelector("#class-name").textContent.trim();
+
+		// Start the class definition
+		generatedCode += `class ${className}(models.Model):\n`;
+
+		// Get all fields for the current class
+		const fields = classSection.querySelectorAll("#class-field");
+
+		// Iterate through each field and generate field code
+		fields.forEach(field => {
+			const fieldName = field.querySelector("#att-name").value.trim();
+			let fieldType = field.querySelector("#att-type").value;
+			fieldType = capitalizeWords(fieldType.replaceAll("-", " ")).replaceAll(" ", "");
+			let fieldCode = `    ${fieldName} = models.${fieldType}(`;
+
+				// Check if it's a foreign key and add related class
+				if (fieldType === "ForeignKey") {
+					const relatedClass = field.querySelector("#att-relationship").value;
+					fieldCode = `    models.${fieldType}(${relatedClass}, on_delete=models.CASCADE, `;
+				}
+
+				// Add other field properties based on user input
+				const size = field.querySelector("#att-size").value.trim();
+				const defaultValue = field.querySelector("#att-default").value.trim();
+				const primaryKey = field.querySelector("#att-primary-key").checked ? ", primary_key=True" : ", primary_key=False";
+				const isNull = field.querySelector("#att-null").checked ? ", null=True" : ", null=False";
+				const isBlank = field.querySelector("#att-blank").checked ? ", blank=True" : ", blank=False";
+				const isUnique = field.querySelector("#att-unique").checked ? ", unique=True" : ", unique=False";
+
+				// Add size, default value, and other properties to field code
+				if (fieldType !== "ForeignKey")
+					fieldCode += `max_length=${size}`;
+				if (defaultValue !== "") {
+					fieldCode += `, default='${defaultValue}'`;
+				}
+				fieldCode += `${primaryKey}${isNull}${isBlank}${isUnique})\n`;
+
+				// Add this field's code to the class code
+				generatedCode += fieldCode;
+				});
+
+			// Add an empty line between classes
+			generatedCode += "\n";
+		});
+
+		// Put the generated code inside the 'code-section' element
+		const codeSection = document.getElementById("code-section");
+		codeSection.textContent = generatedCode;
+
+		// TODO: Generate models code
+		codeSection.hidden = false;
+}
+
+function capitalizeWords(str) {
+    return str.replace(/\b\w/g, function (char) {
+        return char.toUpperCase();
+    });
 }
 
 function buildCopyrightContent() {
