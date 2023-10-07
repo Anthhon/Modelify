@@ -273,17 +273,20 @@ function fieldTypeModified(event) {
 	var attLabelRelationship = currentField.querySelector("#att-label-relationship");
 	var attRelationshipSelect = currentField.querySelector("#att-relationship");
 	var attSizeInput = currentField.querySelector("#att-size");
+	var attDefaultValue = currentField.querySelector("#att-default");
 
 	if (attType === "foreign-key") {
 		// If att-type is 'foreign-key', show relationship elements and hide size element
 		attLabelRelationship.style.display = "block";
 		attRelationshipSelect.style.display = "block";
 		attSizeInput.style.display = "none";
+		attDefaultValue.style.display = "none";
 	} else {
 		// If att-type is not 'foreign-key', hide relationship elements and show size element
 		attLabelRelationship.style.display = "none";
 		attRelationshipSelect.style.display = "none";
 		attSizeInput.style.display = "block";
+		attDefaultValue.style.display = "block";
 	}
 }
 
@@ -315,7 +318,7 @@ function generateModels() {
 				// Check if it's a foreign key and add related class
 				if (fieldType === "ForeignKey") {
 					const relatedClass = field.querySelector("#att-relationship").value;
-					fieldCode = `    models.${fieldType}(${relatedClass}, on_delete=models.CASCADE, `;
+					fieldCode = `    models.${fieldType}(${relatedClass}, on_delete=models.CASCADE`;
 				}
 
 				// Add other field properties based on user input
@@ -327,16 +330,23 @@ function generateModels() {
 				const isUnique = field.querySelector("#att-unique").checked ? ", unique=True" : ", unique=False";
 
 				// Add size, default value, and other properties to field code
-				if (fieldType !== "ForeignKey")
+				if (fieldType !== "ForeignKey") {
 					fieldCode += `max_length=${size}`;
-				if (defaultValue !== "") {
-					fieldCode += `, default='${defaultValue}'`;
+					if (defaultValue !== "") {
+						fieldCode += `, default='${defaultValue}'`;
+					}
 				}
-				fieldCode += `${primaryKey}${isNull}${isBlank}${isUnique})\n`;
+
+				fieldCode += `${primaryKey}${isNull}${isBlank}${isUnique})\n\n`;
+				
 
 				// Add this field's code to the class code
 				generatedCode += fieldCode;
 				});
+
+			// Add return self boilerplate structure
+			generatedCode += `    def __str__(self):\n`;
+			generatedCode += `        return self.${className}\n`;
 
 			// Add an empty line between classes
 			generatedCode += "\n";
