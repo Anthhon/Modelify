@@ -318,7 +318,7 @@ function generateModels() {
 				// Check if it's a foreign key and add related class
 				if (fieldType === "ForeignKey") {
 					const relatedClass = field.querySelector("#att-relationship").value;
-					fieldCode = `    models.${fieldType}(${relatedClass}, on_delete=models.CASCADE`;
+					fieldCode = `    ${fieldName} = models.${fieldType}(${relatedClass}, on_delete=models.CASCADE`;
 				}
 
 				// Add other field properties based on user input
