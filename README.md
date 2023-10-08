@@ -39,8 +39,7 @@ To access Modelify and start creating your Django models, [visit the Modelify We
 ```python
 class Products(models.Model):
     name = models.CharField(max_length=64, primary_key=False, null=False, blank=False, unique=True)
-
-    models.ForeignKey(ProductsTypes, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, unique=False)
+    type = models.ForeignKey(ProductsTypes, on_delete=models.CASCADE, primary_key=False, null=False, blank=False, unique=False)
 
     def __str__(self):
         return self.Products

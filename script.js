@@ -337,7 +337,7 @@ function generateModels() {
 					}
 				}
 
-				fieldCode += `${primaryKey}${isNull}${isBlank}${isUnique})\n\n`;
+				fieldCode += `${primaryKey}${isNull}${isBlank}${isUnique})\n`;
 				
 
 				// Add this field's code to the class code
@@ -345,7 +345,7 @@ function generateModels() {
 				});
 
 			// Add return self boilerplate structure
-			generatedCode += `    def __str__(self):\n`;
+			generatedCode += `\n    def __str__(self):\n`;
 			generatedCode += `        return self.${className}\n`;
 
 			// Add an empty line between classes
