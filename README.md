@@ -28,7 +28,7 @@ To access Modelify and start creating your Django models, [visit the Modelify We
 ### Delete Classes or Fields:
 
 - To remove a class or field, click the trash icon next to the class or field you want to delete.
-- 
+
 ### Generate Django Model Code:
 
 - Once you have defined your classes and fields, click the "Generate Models" button.
